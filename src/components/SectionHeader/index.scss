@@ -1,0 +1,38 @@
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  &__title {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  &__see-all {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 0;
+    transition: color 0.18s ease, gap 0.18s ease;
+
+    svg { transition: transform 0.18s ease; }
+
+    &:hover {
+      color: var(--text-primary);
+      gap: 8px;
+      svg { transform: translateX(2px); }
+    }
+  }
+}

@@ -1,0 +1,62 @@
+.practice-page {
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+    color: var(--text-muted);
+    max-width: 480px;
+
+    svg { flex-shrink: 0; }
+  }
+
+  &__search-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    color: var(--text-primary);
+
+    &::placeholder { color: var(--text-muted); }
+  }
+
+  &__table {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+}
+
+.practice-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.055);
+  cursor: pointer;
+  transition: background 0.15s;
+  gap: 12px;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: rgba(0,0,0,0.02); }
+
+  &__title {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  &__diff {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+}

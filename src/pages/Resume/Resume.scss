@@ -1,0 +1,85 @@
+.resume-page {
+  &__card {
+    background: var(--bg-card);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 28px 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border: 1px solid rgba(0,0,0,0.04);
+    max-width: 560px;
+    flex-wrap: wrap;
+  }
+
+  &__preview {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__preview-icon {
+    width: 52px;
+    height: 52px;
+    background: rgba(111,163,208,0.12);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #5A90C5;
+    flex-shrink: 0;
+  }
+
+  &__preview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__preview-name {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  &__preview-meta {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.18s ease;
+
+    &--primary {
+      background: var(--text-primary);
+      color: #fff;
+      &:hover { background: #333; }
+    }
+
+    &--ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1.5px solid #D8D4CF;
+      &:hover { border-color: #999; color: var(--text-primary); }
+    }
+  }
+}

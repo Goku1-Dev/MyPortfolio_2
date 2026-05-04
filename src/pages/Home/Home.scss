@@ -1,0 +1,16 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 16px;
+  }
+}

@@ -2,25 +2,25 @@ import { useState } from 'react';
 import {
   User, Folders, Palette, Code2, FileText,
   GitFork, Link2, Mail, X as XIcon, AtSign, Send,
-  Sun, Moon,
+  Sun, Moon, Home,
 } from 'lucide-react';
 import './index.scss';
 import { profileData, navItems, contactLinks, copyrightYear } from './data';
 
 const iconMap = {
-  User, Folders, Palette, Code2, FileText,
+  Home, User, Folders, Palette, Code2, FileText,
   GitFork, Link2, Mail, XIcon, AtSign, Send,
 };
 
-export default function LeftPanel({ theme, onThemeToggle }) {
-  const [activeNav, setActiveNav] = useState('home');
+export default function LeftPanel({ activePage, onNavigate, theme, onThemeToggle }) {
   const { firstName, lastName, role, image } = profileData;
   const fullName = `${firstName} ${lastName}`;
 
   return (
     <aside className="left-panel">
       <div className="left-panel__content">
-        <div className="left-panel__profile">
+        {/* Profile — clicking name goes to about */}
+        <div className="left-panel__profile" onClick={() => onNavigate('about')} role="button" tabIndex={0}>
           <div className="left-panel__avatar-wrap">
             <img className="left-panel__avatar" src={image} alt={fullName} />
           </div>
@@ -31,15 +31,28 @@ export default function LeftPanel({ theme, onThemeToggle }) {
           <p className="left-panel__role">{role}</p>
         </div>
 
+        {/* Nav */}
         <nav className="left-panel__nav">
+          {/* Home item */}
+          <button
+            className={`left-panel__nav-item ${activePage === 'home' ? 'left-panel__nav-item--active' : ''}`}
+            onClick={() => onNavigate('home')}
+          >
+            <span className="left-panel__nav-icon">
+              <Home size={17} strokeWidth={activePage === 'home' ? 2.2 : 1.8} />
+            </span>
+            <span className="left-panel__nav-label">Home</span>
+            {activePage === 'home' && <span className="left-panel__nav-pip" />}
+          </button>
+
           {navItems.map((item) => {
             const Icon = iconMap[item.icon];
-            const isActive = activeNav === item.id;
+            const isActive = activePage === item.id;
             return (
               <button
                 key={item.id}
                 className={`left-panel__nav-item ${isActive ? 'left-panel__nav-item--active' : ''}`}
-                onClick={() => setActiveNav(item.id)}
+                onClick={() => onNavigate(item.id)}
               >
                 <span className="left-panel__nav-icon">
                   <Icon size={17} strokeWidth={isActive ? 2.2 : 1.8} />
@@ -52,6 +65,7 @@ export default function LeftPanel({ theme, onThemeToggle }) {
         </nav>
       </div>
 
+      {/* Footer */}
       <div className="left-panel__footer">
         <div className="left-panel__connect-row">
           <p className="left-panel__connect-label">CONNECT</p>
@@ -62,8 +76,8 @@ export default function LeftPanel({ theme, onThemeToggle }) {
             aria-label="Toggle theme"
           >
             {theme === 'dark'
-              ? <Sun size={15} strokeWidth={1.5} />
-              : <Moon size={15} strokeWidth={1.5} />
+              ? <Sun size={15} strokeWidth={1.8} />
+              : <Moon size={15} strokeWidth={1.8} />
             }
           </button>
         </div>
@@ -72,24 +86,16 @@ export default function LeftPanel({ theme, onThemeToggle }) {
           {contactLinks.map((link) => {
             const Icon = iconMap[link.icon];
             return (
-              <a
-                key={link.id}
-                href={link.href}
-                className="left-panel__contact-icon"
-                title={link.label}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-              >
+              <a key={link.id} href={link.href} className="left-panel__contact-icon"
+                title={link.label} target="_blank" rel="noopener noreferrer"
+                aria-label={link.label}>
                 <Icon size={16} strokeWidth={1.8} />
               </a>
             );
           })}
         </div>
 
-        <p className="left-panel__copyright">
-          © {copyrightYear} {fullName}
-        </p>
+        <p className="left-panel__copyright">© {copyrightYear} {fullName}</p>
       </div>
     </aside>
   );

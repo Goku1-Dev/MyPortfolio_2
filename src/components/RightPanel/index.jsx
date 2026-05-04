@@ -1,32 +1,20 @@
-import { useState } from 'react';
 import './index.scss';
-import Testimonials from '../Testimonials';
-import Tabs from '../Tabs';
-import Card from '../Card';
-import { cardsData } from '../Card/data';
+import Home     from '../../pages/Home';
+import About    from '../../pages/About';
+import Projects from '../../pages/Projects';
+import Designs  from '../../pages/Designs';
+import Practice from '../../pages/Practice';
+import Resume   from '../../pages/Resume';
 
-export default function RightPanel() {
-  const [activeTab, setActiveTab] = useState('all');
+const PAGE_MAP = { home: Home, about: About, projects: Projects, designs: Designs, practice: Practice, resume: Resume };
 
-  const filtered = activeTab === 'all'
-    ? cardsData
-    : cardsData.filter(c => c.type === activeTab);
+export default function RightPanel({ activePage, onNavigate }) {
+  const PageComponent = PAGE_MAP[activePage] || Home;
 
   return (
-    <main className="right-panel">
+    <main className="right-panel" key={activePage}>
       <div className="right-panel__inner">
-        <Testimonials />
-        <Tabs activeTab={activeTab} onTabChange={setActiveTab} />
-
-        <div className="right-panel__cards-label">
-          <span className="right-panel__count">{filtered.length} services</span>
-        </div>
-
-        <div className="right-panel__grid">
-          {filtered.map(card => (
-            <Card key={card.id} card={card} />
-          ))}
-        </div>
+        <PageComponent onNavigate={onNavigate} />
       </div>
     </main>
   );

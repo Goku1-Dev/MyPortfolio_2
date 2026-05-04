@@ -40,3 +40,10 @@ html, body, #root {
   height: 100vh;
   overflow: hidden;
 }
+
+/* Shared section block used by all non-Home pages */
+.page-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

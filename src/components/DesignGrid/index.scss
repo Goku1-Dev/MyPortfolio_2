@@ -1,0 +1,101 @@
+.design-grid {
+  &__filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__filter {
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid #D8D4CF;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.18s ease;
+
+    &:hover:not(.design-grid__filter--active) {
+      border-color: #999;
+      background: rgba(255,255,255,0.6);
+      color: var(--text-primary);
+    }
+
+    &--active {
+      background: var(--text-primary);
+      color: #fff;
+      border-color: var(--text-primary);
+    }
+  }
+
+  &__collage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 130px;
+    gap: 10px;
+  }
+
+  &__item {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-lg);
+      z-index: 2;
+
+      .design-grid__overlay { opacity: 1; }
+      .design-grid__emoji   { opacity: 0.15; }
+    }
+
+    &--wide  { grid-column: span 2; }
+    &--tall  { grid-row: span 2; }
+    &--normal { grid-column: span 1; }
+  }
+
+  &__emoji {
+    font-size: 3rem;
+    opacity: 0.35;
+    transition: opacity 0.22s ease;
+    user-select: none;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 12px 14px;
+    opacity: 0;
+    transition: opacity 0.22s ease;
+    gap: 2px;
+  }
+
+  &__cat {
+    font-family: var(--font-body);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  &__name {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+}

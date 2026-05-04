@@ -1,12 +1,11 @@
 export const profileData = {
   firstName: "Gokul",
   lastName: "Sureshkumar",
-  role: "Full-Stack Developer & Designer. I build production web, desktop and mobile apps, and engineer custom systems and libraries.",
+  role: "UX Designer at Lollypop Design Studio",
   image: "https://randomuser.me/api/portraits/men/32.jpg",
 };
 
 export const navItems = [
-  { id: "home",    label: "Home",    icon: "User" },
   { id: "about",    label: "About",    icon: "User" },
   { id: "projects", label: "Projects", icon: "Folders" },
   { id: "designs",  label: "Designs",  icon: "Palette" },
