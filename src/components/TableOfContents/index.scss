@@ -1,0 +1,166 @@
+.toc {
+  // Fixed to the right side of the viewport — never moves on scroll
+  position: fixed;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  z-index: 100;
+
+  // Sized to just the indicator by default
+  width: 36px;
+
+  // ── Collapsed indicator ─────────────────────────────
+  &__indicator {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 8px 12px 0;
+    align-items: flex-end;
+    transition: opacity 0.18s ease;
+  }
+
+  &__indicator-line {
+    display: block;
+    height: 2px;
+    width: 18px;
+    background: rgba(0, 0, 0, 0.13);
+    border-radius: 2px;
+    transition: width 0.2s ease, background 0.2s ease;
+
+    &--sub {
+      width: 11px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    &--active {
+      background: rgba(0, 0, 0, 0.5);
+      width: 22px;
+
+      &.toc__indicator-line--sub {
+        width: 15px;
+      }
+    }
+  }
+
+  // ── Expanded panel — shown only on hover ─────────────
+  &__panel {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%) translateX(6px) scale(0.97);
+    transform-origin: right center;
+    width: 210px;
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 12px;
+    padding: 16px 14px 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+
+    // Hidden by default
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+  }
+
+  // ── Expanded state (hover only) ──────────────────────
+  &--expanded {
+    .toc__indicator {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .toc__panel {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(-50%) translateX(0) scale(1);
+    }
+  }
+
+  // ── Panel internals ──────────────────────────────────
+  &__label {
+    font-family: var(--font-body);
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  &__item {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 5px 8px 5px 10px;
+    text-align: left;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    cursor: pointer;
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+    border-radius: 4px;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.12s ease;
+
+    &:hover {
+      color: var(--text-secondary);
+      background: rgba(0, 0, 0, 0.04);
+    }
+
+    &--sub {
+      padding-left: 20px;
+      font-size: 0.75rem;
+    }
+
+    // Active: left border highlight — only visible inside the hover panel
+    &--active {
+      color: var(--text-primary);
+      font-weight: 500;
+      border-left-color: var(--text-primary);
+    }
+  }
+}
+
+// ── Dark mode ────────────────────────────────────────────
+.app-layout--dark .toc {
+  &__indicator-line {
+    background: rgba(255, 255, 255, 0.18);
+
+    &--sub {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &--active {
+      background: rgba(255, 255, 255, 0.75);
+    }
+  }
+
+  &__panel {
+    background: #1e1e1e;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  &__item {
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    &--active {
+      border-left-color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+// ── Hide on narrow screens ───────────────────────────────
+@media (max-width: 860px) {
+  .toc { display: none; }
+}

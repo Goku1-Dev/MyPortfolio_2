@@ -9,7 +9,7 @@ export default function Designs() {
       subtitle="A curated collection of UI/UX work across web, mobile, and brand."
     >
       <section className="page-section">
-        <SectionHeader title="All Designs" />
+        {/* <SectionHeader /> */}
         <DesignGrid showAll />
       </section>
     </PageShell>

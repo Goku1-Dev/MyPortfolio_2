@@ -39,6 +39,18 @@ html, body, #root {
   display: flex;
   height: 100vh;
   overflow: hidden;
+
+  // Dark mode overrides
+  &--dark {
+    --bg-main: #141414;
+    --bg-card: #1e1e1e;
+    --text-primary: #F0EDE8;
+    --text-secondary: #aaaaaa;
+    --text-muted: #666666;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  }
 }
 
 /* Shared section block used by all non-Home pages */
@@ -46,4 +58,13 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+// ── Responsive layout ────────────────────────────────────
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+    height: 100dvh;
+    overflow: auto;
+  }
 }

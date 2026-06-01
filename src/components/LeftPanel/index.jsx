@@ -1,8 +1,7 @@
-import { useState } from 'react';
 import {
   User, Folders, Palette, Code2, FileText,
   GitFork, Link2, Mail, X as XIcon, AtSign, Send,
-  Sun, Moon, Home,
+  Sun, Moon, Home, X as CloseIcon,
 } from 'lucide-react';
 import './index.scss';
 import { profileData, navItems, contactLinks, copyrightYear } from './data';
@@ -12,15 +11,33 @@ const iconMap = {
   GitFork, Link2, Mail, XIcon, AtSign, Send,
 };
 
-export default function LeftPanel({ activePage, onNavigate, theme, onThemeToggle }) {
+export default function LeftPanel({
+  activePage, onNavigate, theme, onThemeToggle,
+  sidebarOpen, onSidebarClose,
+}) {
   const { firstName, lastName, role, image } = profileData;
   const fullName = `${firstName} ${lastName}`;
 
   return (
-    <aside className="left-panel">
+    <aside className={`left-panel${sidebarOpen ? ' left-panel--open' : ''}`}>
+      {/* Mobile close button */}
+      <button
+        className="left-panel__close-btn"
+        onClick={onSidebarClose}
+        aria-label="Close menu"
+      >
+        <CloseIcon size={20} strokeWidth={2} />
+      </button>
+
       <div className="left-panel__content">
-        {/* Profile — clicking name goes to about */}
-        <div className="left-panel__profile" onClick={() => onNavigate('about')} role="button" tabIndex={0}>
+        {/* Profile */}
+        <div
+          className="left-panel__profile"
+          onClick={() => onNavigate('about')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => { if (e.key === 'Enter') onNavigate('about'); }}
+        >
           <div className="left-panel__avatar-wrap">
             <img className="left-panel__avatar" src={image} alt={fullName} />
           </div>
@@ -33,9 +50,8 @@ export default function LeftPanel({ activePage, onNavigate, theme, onThemeToggle
 
         {/* Nav */}
         <nav className="left-panel__nav">
-          {/* Home item */}
           <button
-            className={`left-panel__nav-item ${activePage === 'home' ? 'left-panel__nav-item--active' : ''}`}
+            className={`left-panel__nav-item${activePage === 'home' ? ' left-panel__nav-item--active' : ''}`}
             onClick={() => onNavigate('home')}
           >
             <span className="left-panel__nav-icon">
@@ -51,7 +67,7 @@ export default function LeftPanel({ activePage, onNavigate, theme, onThemeToggle
             return (
               <button
                 key={item.id}
-                className={`left-panel__nav-item ${isActive ? 'left-panel__nav-item--active' : ''}`}
+                className={`left-panel__nav-item${isActive ? ' left-panel__nav-item--active' : ''}`}
                 onClick={() => onNavigate(item.id)}
               >
                 <span className="left-panel__nav-icon">
@@ -65,7 +81,7 @@ export default function LeftPanel({ activePage, onNavigate, theme, onThemeToggle
         </nav>
       </div>
 
-      {/* Footer */}
+      {/* Footer / Contact */}
       <div className="left-panel__footer">
         <div className="left-panel__connect-row">
           <p className="left-panel__connect-label">CONNECT</p>

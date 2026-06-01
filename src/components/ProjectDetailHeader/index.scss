@@ -1,0 +1,233 @@
+.pdh {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 0;
+
+  // ── Breadcrumb ──────────────────────────────────────
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__breadcrumb-link {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+
+    &:hover { color: var(--text-secondary); }
+  }
+
+  &__breadcrumb-sep {
+    color: var(--text-muted);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  &__breadcrumb-current {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+  }
+
+  // ── Title row ───────────────────────────────────────
+  &__title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    flex: 1;
+
+    // Subtle accent underline on the last word — purely decorative
+    position: relative;
+  }
+
+  // ── Action menu ─────────────────────────────────────
+  &__menu-wrap {
+    position: relative;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  &__menu-trigger {
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--text-primary);
+    }
+  }
+
+  &__menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    padding: 6px;
+    min-width: 220px;
+    z-index: 100;
+    animation: pdh-menu-in 0.14s ease;
+  }
+
+  @keyframes pdh-menu-in {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+  }
+
+  &__menu-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.06);
+    margin: 4px 6px;
+  }
+
+  &__menu-item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 10px;
+    row-gap: 1px;
+    align-items: start;
+    padding: 9px 10px;
+    border-radius: 6px;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s ease;
+
+    svg {
+      grid-row: 1 / 3;
+      align-self: center;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    &:hover { background: rgba(0, 0, 0, 0.04); }
+  }
+
+  &__menu-item-label {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  &__menu-item-sub {
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  // ── Pill links ──────────────────────────────────────
+  &__links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: var(--bg-card);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.22);
+      color: var(--text-primary);
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    &--live {
+      border-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  &__link-ext {
+    opacity: 0.45;
+  }
+}
+
+// Dark mode support
+.app-layout--dark {
+  .pdh {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+
+    &__menu-trigger {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.1);
+
+      &:hover { background: rgba(255, 255, 255, 0.1); }
+    }
+
+    &__menu {
+      background: #1e1e1e;
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &__menu-divider { background: rgba(255, 255, 255, 0.08); }
+    &__menu-item:hover { background: rgba(255, 255, 255, 0.06); }
+
+    &__link {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.09);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .pdh {
+    &__title { font-size: 1.5rem; }
+    &__breadcrumb-current { max-width: 180px; }
+  }
+}

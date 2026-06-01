@@ -148,3 +148,17 @@
     line-height: 1.6;
   }
 }
+
+@media (max-width: 768px) {
+  .work-item {
+    &__header {
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+    }
+    &__period {
+      font-size: 0.75rem;
+    }
+  }
+  .about-bio { max-width: 100%; }
+}

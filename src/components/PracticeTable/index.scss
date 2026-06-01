@@ -83,3 +83,11 @@
     white-space: nowrap;
   }
 }
+
+@media (max-width: 768px) {
+  .practice-table {
+    &__topic { display: none; }
+    &__dot   { display: none; }
+    &__row { padding: 13px 16px; }
+  }
+}

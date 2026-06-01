@@ -1,10 +1,17 @@
 import './index.scss';
 
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, onClick }) {
   const { title, description, tags, github, live, accent } = project;
 
   return (
-    <article className="project-card" style={{ '--accent': accent }}>
+    <article
+      className={`project-card${onClick ? ' project-card--clickable' : ''}`}
+      style={{ '--accent': accent }}
+      onClick={onClick}
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
+    >
       <div className="project-card__accent-bar" />
 
       <div className="project-card__body">
@@ -13,7 +20,8 @@ export default function ProjectCard({ project }) {
           <div className="project-card__links">
             {github && (
               <a href={github} target="_blank" rel="noopener noreferrer"
-                className="project-card__link" title="GitHub">
+                className="project-card__link" title="GitHub"
+                onClick={e => e.stopPropagation()}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="18" r="3"/>
@@ -27,7 +35,8 @@ export default function ProjectCard({ project }) {
             )}
             {live && (
               <a href={live} target="_blank" rel="noopener noreferrer"
-                className="project-card__link project-card__link--live" title="Live">
+                className="project-card__link project-card__link--live" title="Live"
+                onClick={e => e.stopPropagation()}>
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                   stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>

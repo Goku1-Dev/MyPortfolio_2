@@ -1,6 +1,6 @@
 .left-panel {
-  width: 340px;
-  min-width: 340px;
+  width: 300px;
+  min-width: 300px;
   height: 100vh;
   background: linear-gradient(160deg, #7AAFE0 0%, #5A90C5 60%, #4880B8 100%);
   display: flex;
@@ -9,14 +9,15 @@
   position: sticky;
   top: 0;
   overflow: hidden;
+  flex-shrink: 0;
+  z-index: 200;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   &::before {
     content: '';
     position: absolute;
-    top: -80px;
-    right: -80px;
-    width: 280px;
-    height: 280px;
+    top: -80px; right: -80px;
+    width: 280px; height: 280px;
     border-radius: 50%;
     background: rgba(255,255,255,0.08);
     pointer-events: none;
@@ -25,13 +26,30 @@
   &::after {
     content: '';
     position: absolute;
-    bottom: 140px;
-    left: -60px;
-    width: 200px;
-    height: 200px;
+    bottom: 140px; left: -60px;
+    width: 200px; height: 200px;
     border-radius: 50%;
     background: rgba(255,255,255,0.06);
     pointer-events: none;
+  }
+
+  // ── Close button (mobile only) ───────────────────────
+  &__close-btn {
+    display: none;
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.18s ease;
+
+    &:hover { background: rgba(255,255,255,0.25); }
   }
 
   // ── Profile ──────────────────────────────────────────
@@ -42,17 +60,18 @@
     flex: 1;
     overflow-y: auto;
     &::-webkit-scrollbar { display: none; }
+    scrollbar-width: none;
   }
 
   &__profile {
     display: flex;
     flex-direction: column;
     margin-bottom: 25px;
+    cursor: pointer;
   }
 
   &__avatar-wrap {
-    width: 130px;
-    height: 130px;
+    width: 130px; height: 130px;
     border-radius: 50%;
     padding: 3px;
     background: rgba(255,255,255,0.4);
@@ -61,8 +80,7 @@
   }
 
   &__avatar {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 50%;
     object-fit: cover;
     display: block;
@@ -83,16 +101,10 @@
     color: #fff;
     line-height: 1.05;
     letter-spacing: -0.025em;
-  }
-
-  &__name-first {
     font-size: 2.5rem;
   }
 
-  &__name-last {
-    font-size: 2.5rem;
-    opacity: 0.88;
-  }
+  &__name-last { opacity: 0.88; }
 
   &__role {
     font-size: 0.78rem;
@@ -102,7 +114,7 @@
     font-family: var(--font-body);
   }
 
-  // ── Nav Menu ─────────────────────────────────────────
+  // ── Nav ──────────────────────────────────────────────
   &__nav {
     display: flex;
     flex-direction: column;
@@ -144,20 +156,17 @@
     flex-shrink: 0;
   }
 
-  &__nav-label {
-    flex: 1;
-  }
+  &__nav-label { flex: 1; }
 
   &__nav-pip {
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     background: #fff;
     opacity: 0.65;
     flex-shrink: 0;
   }
 
-  // ── Contact Footer ────────────────────────────────────
+  // ── Footer ───────────────────────────────────────────
   &__footer {
     padding: 20px 32px 28px;
     position: relative;
@@ -187,8 +196,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 30px;
-    height: 30px;
+    width: 30px; height: 30px;
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.25);
     background: rgba(255,255,255,0.12);
@@ -214,8 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
+    width: 34px; height: 34px;
     border-radius: 9px;
     color: rgba(255,255,255,0.7);
     background: rgba(255,255,255,0.1);
@@ -239,15 +246,54 @@
   }
 }
 
-@media (max-width: 900px) {
+// ── Sidebar overlay ──────────────────────────────────────
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 150;
+  backdrop-filter: blur(2px);
+}
+
+// ── Responsive ───────────────────────────────────────────
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+  }
+
   .left-panel {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100dvh;
     width: 280px;
-    min-width: 280px;
+    min-width: 0;
+    transform: translateX(-100%);
+    z-index: 200;
 
-    &__content { padding: 32px 24px 0; }
-    &__footer   { padding: 18px 24px 22px; }
+    &--open {
+      transform: translateX(0);
+    }
 
-    &__name-first { font-size: 1.7rem; }
-    &__name-last  { font-size: 1.4rem; }
+    &__close-btn {
+      display: flex;
+    }
+
+    &__content {
+      padding: 56px 24px 0;
+    }
+
+    &__footer {
+      padding: 16px 24px 24px;
+    }
+
+    &__avatar-wrap {
+      width: 90px; height: 90px;
+    }
+
+    &__name-first,
+    &__name-last {
+      font-size: 1.8rem;
+    }
   }
 }

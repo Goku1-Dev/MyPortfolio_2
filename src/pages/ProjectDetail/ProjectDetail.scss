@@ -1,0 +1,130 @@
+.project-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  animation: pd-in 0.25s ease;
+
+  @keyframes pd-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  // ── Body layout: content + TOC ──────────────────────
+  &__body {
+    display: flex;
+    gap: 52px;
+    align-items: flex-start;
+  }
+
+  // ── Article content ─────────────────────────────────
+  &__content {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+  }
+
+  &__subsection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 20px;
+    border-left: 2px solid rgba(0, 0, 0, 0.07);
+    margin-top: 8px;
+  }
+
+  &__anchor {
+    display: block;
+    position: absolute;
+    top: -90px;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &__heading {
+    font-family: var(--font-display);
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+  }
+
+  &__subheading {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 0.72rem;
+  }
+
+  &__para {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 62ch;
+  }
+
+  // ── Tags footer ─────────────────────────────────────
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+  }
+
+  &__tag {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+    padding: 4px 10px;
+  }
+}
+
+// Dark mode adjustments
+.app-layout--dark {
+  .project-detail {
+    &__subsection {
+      border-left-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &__tags {
+      border-top-color: rgba(255, 255, 255, 0.08);
+    }
+
+    &__tag {
+      background: rgba(255, 255, 255, 0.07);
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .project-detail__body { flex-direction: column; }
+}
+
+@media (max-width: 768px) {
+  .project-detail {
+    gap: 28px;
+
+    &__heading { font-size: 1.2rem; }
+    &__para { font-size: 0.85rem; max-width: 100%; }
+    &__subsection { padding-left: 12px; }
+  }
+}
